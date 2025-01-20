@@ -1,0 +1,38 @@
+import NextAuth, { Session } from "next-auth";
+import Cognito from "next-auth/providers/cognito";
+import GitHubProvider from "next-auth/providers/github";
+import GoogleProvider from "next-auth/providers/google";
+
+const authOptions = {
+  providers: [
+    GitHubProvider({
+      clientId: process.env.GITHUB_ID!,
+      clientSecret: process.env.GITHUB_SECRET!,
+    }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_ID!,
+      clientSecret: process.env.GOOGLE_SECRET!,
+    }),
+    Cognito({
+      clientId: process.env.COGNITO_CLIENT_ID!,
+      clientSecret: process.env.COGNITO_CLIENT_SECRET!,
+      issuer: process.env.COGNITO_ISSUER,
+    }),
+  ],
+  debug: true,
+  callbacks: {
+    session: ({ session, token }: { session: Session; token: any }) => ({
+      ...session,
+      user: {
+        ...session.user,
+        id: token.sub,
+      },
+    }),
+  },
+};
+
+const handler = NextAuth(authOptions);
+export const GET = handler;
+export const POST = handler;
+
+export default handler;
