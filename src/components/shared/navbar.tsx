@@ -1,27 +1,44 @@
 "use client";
 
 import { useSession } from "next-auth/react";
-import { SignOutButton } from "../ui/auth/sign-out-button";
+import Link from "next/link";
+import {
+  NavigationMenu,
+  NavigationMenuLink,
+  NavigationMenuList,
+  navigationMenuTriggerStyle,
+} from "../ui/navigation-menu";
+import AuthDropdown from "./auth-dropdown";
 
-export function Navbar() {
+interface NavbarProps {}
+
+export default function Navbar() {
   const { data: session } = useSession();
 
   return (
-    <nav className="border-b border-gray-200 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16 items-center">
-          <div className="flex-shrink-0">
-            <span className="text-xl font-bold">Pluto</span>
-          </div>
-
-          <div className="flex items-center gap-4">
-            <span className="text-sm text-gray-500">
-              {session?.user?.email}
-            </span>
-            <SignOutButton />
-          </div>
-        </div>
+    <div className="fixed top-0 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 pr-4">
+      <div className="container flex h-14 max-w-screen-2xl items-center justify-between">
+        <NavigationMenu>
+          <NavigationMenuList className="gap-6">
+            <Link href="/" legacyBehavior passHref>
+              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                Home
+              </NavigationMenuLink>
+            </Link>
+            <Link href="/dashboard" legacyBehavior passHref>
+              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                Dashboard
+              </NavigationMenuLink>
+            </Link>
+            <Link href="/reports" legacyBehavior passHref>
+              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                Reports
+              </NavigationMenuLink>
+            </Link>
+          </NavigationMenuList>
+        </NavigationMenu>
+        <AuthDropdown />
       </div>
-    </nav>
+    </div>
   );
 }

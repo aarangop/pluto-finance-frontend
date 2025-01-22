@@ -1,4 +1,5 @@
 import AuthProvider from "@/components/providers/session-provider";
+import Navbar from "@/components/shared/navbar";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -26,7 +27,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={geistSans.className}>
-        <AuthProvider>{children}</AuthProvider>
+        <AuthProvider>
+          <Navbar />
+          <div className="pt-14">{children}</div>
+        </AuthProvider>
       </body>
     </html>
   );
