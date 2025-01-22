@@ -15,7 +15,7 @@ export default function AuthDropdown() {
 
   return (
     <div className="flex items-center gap-4">
-      {session ? (
+      {session && (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="relative h-8 w-8 rounded-full">
@@ -49,7 +49,8 @@ export default function AuthDropdown() {
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-      ) : (
+      )}
+      {!session && (
         <Button onClick={() => signIn("cognito")} variant="default" size="sm">
           Sign in
         </Button>

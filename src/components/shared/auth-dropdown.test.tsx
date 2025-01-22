@@ -30,7 +30,8 @@ describe("AuthDropdown", () => {
       user: {
         name: "John Doe",
         email: "john@example.com",
-        image: "https://example.com/avatar.jpg",
+        image:
+          "https://gravatar.com/avatar/e3dfafb037a022bcdf6594843540ac1d?s=400&d=robohash&r=x",
       },
     };
 
