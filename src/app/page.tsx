@@ -6,12 +6,9 @@ import { Card, CardContent } from "@/components/ui/card";
 import { LineChart, PieChart, Users, Wallet } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import { useState } from "react";
 
 export default function Home() {
   const { data: session } = useSession();
-
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const features = [
     {

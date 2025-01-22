@@ -9,8 +9,6 @@ import {
 } from "../ui/navigation-menu";
 import AuthDropdown from "./auth-dropdown";
 
-interface NavbarProps {}
-
 export default function Navbar() {
   return (
     <div className="fixed top-0 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 pl-4 pr-4">

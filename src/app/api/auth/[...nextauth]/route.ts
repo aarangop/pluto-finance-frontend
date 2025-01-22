@@ -1,4 +1,5 @@
 import NextAuth, { Session } from "next-auth";
+import { JWT } from "next-auth/jwt";
 import Cognito from "next-auth/providers/cognito";
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
@@ -21,7 +22,7 @@ const authOptions = {
   ],
   debug: true,
   callbacks: {
-    session: ({ session, token }: { session: Session; token: any }) => ({
+    session: ({ session, token }: { session: Session; token: JWT }) => ({
       ...session,
       user: {
         ...session.user,
