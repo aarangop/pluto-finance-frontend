@@ -4,6 +4,9 @@ import Cognito from "next-auth/providers/cognito";
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 
+console.log("NEXTAUTH_SECRET exists:", !!process.env.NEXTAUTH_SECRET);
+console.log("Environment:", process.env.NODE_ENV);
+
 const authOptions = {
   providers: [
     GitHubProvider({
