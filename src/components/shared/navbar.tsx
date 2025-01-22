@@ -1,6 +1,5 @@
 "use client";
 
-import { useSession } from "next-auth/react";
 import Link from "next/link";
 import {
   NavigationMenu,
@@ -13,10 +12,8 @@ import AuthDropdown from "./auth-dropdown";
 interface NavbarProps {}
 
 export default function Navbar() {
-  const { data: session } = useSession();
-
   return (
-    <div className="fixed top-0 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 pr-4">
+    <div className="fixed top-0 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 pl-4 pr-4">
       <div className="container flex h-14 max-w-screen-2xl items-center justify-between">
         <NavigationMenu>
           <NavigationMenuList className="gap-6">

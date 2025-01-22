@@ -53,9 +53,6 @@ export default function Home() {
             <Button asChild>
               <Link href="/dashboard">Go to Dashboard</Link>
             </Button>
-            <Button asChild variant="outline">
-              <Link href="/accounts">Manage Accounts</Link>
-            </Button>
           </div>
         ) : (
           <div className="flex gap-4 justify-center">
