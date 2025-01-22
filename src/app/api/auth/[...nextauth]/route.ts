@@ -21,7 +21,7 @@ const authOptions = {
     }),
   ],
   debug: true,
-  secret: process.env.SECRET,
+  secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     session: ({ session, token }: { session: Session; token: JWT }) => ({
       ...session,
