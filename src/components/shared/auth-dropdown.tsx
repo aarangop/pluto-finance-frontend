@@ -21,8 +21,8 @@ export default function AuthDropdown() {
             <Button variant="ghost" className="relative h-8 w-8 rounded-full">
               <Avatar className="h-8 w-8">
                 <AvatarImage
-                  src={session.user?.image ?? ""}
-                  alt={session.user?.name ?? ""}
+                  src={session.user?.image || undefined}
+                  alt={session.user?.name || "User Avatar"}
                 />
                 <AvatarFallback>
                   {session.user?.name
