@@ -33,7 +33,7 @@ export default function Home() {
       icon: <LineChart className="h-6 w-6 text-primary" />,
       title: "Visual Insights",
       description:
-        "Get clear visualizations of your spending patterns and financial health",
+        "Get clear visualizations of your spending patterns and financial health, and more bla bla bla",
     },
   ];
 
