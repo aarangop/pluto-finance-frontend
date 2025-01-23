@@ -1,48 +1,29 @@
-import { getEnvVar, getSecret } from "@/lib/env";
-import NextAuth, { AuthOptions } from "next-auth";
+import NextAuth, { Session } from "next-auth";
+import { JWT } from "next-auth/jwt";
 import CognitoProvider from "next-auth/providers/cognito";
 
-const getAuthOptions = async (): Promise<AuthOptions> => {
-  const [cognitoClientId, cognitoClientSecret, nextAuthSecret] =
-    await Promise.all([
-      getSecret("COGNITO_CLIENT_ID"),
-      getSecret("COGNITO_CLIENT_SECRET"),
-      getSecret("NEXTAUTH_SECRET"),
-    ]);
-  const cognitoIssuer = await getEnvVar("COGNITO_ISSUER");
-
-  if (
-    !cognitoClientId ||
-    !cognitoClientSecret ||
-    !nextAuthSecret ||
-    !cognitoIssuer
-  ) {
-    throw new Error("Missing required authentication configuration");
-  }
-
-  return {
-    providers: [
-      CognitoProvider({
-        clientId: cognitoClientId,
-        clientSecret: cognitoClientSecret,
-        issuer: cognitoIssuer,
-      }),
-    ],
-    debug: true,
-    secret: nextAuthSecret,
-    callbacks: {
-      session: ({ session, token }) => ({
-        ...session,
-        user: {
-          ...session.user,
-          id: token.sub,
-        },
-      }),
-    },
-  };
+const authOptions = {
+  providers: [
+    CognitoProvider({
+      clientId: process.env.COGNITO_CLIENT_ID!,
+      clientSecret: process.env.COGNITO_CLIENT_SECRET!,
+      issuer: process.env.COGNITO_ISSUER!,
+    }),
+  ],
+  debug: true,
+  secret: process.env.NEXTAUTH_SECRET,
+  callbacks: {
+    session: ({ session, token }: { session: Session; token: JWT }) => ({
+      ...session,
+      user: {
+        ...session.user,
+        id: token.sub,
+      },
+    }),
+  },
 };
 
 // Create handler function
-const handler = NextAuth(await getAuthOptions());
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };
