@@ -13,13 +13,24 @@ const authOptions = {
   debug: true,
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
-    session: ({ session, token }: { session: Session; token: JWT }) => ({
-      ...session,
-      user: {
-        ...session.user,
-        id: token.sub,
-      },
-    }),
+    async jwt({ token, account }: { token: JWT; account: any }) {
+      if (account) {
+        token.accessToken = account.access_token;
+        token.idToken = account.id_token;
+      }
+      return token;
+    },
+    async session({ session, token }: { session: Session; token: JWT }) {
+      return {
+        ...session,
+        accessToken: token.accessToken,
+        idToken: token.idToken,
+        user: {
+          ...session.user,
+          id: token.sub,
+        },
+      };
+    },
   },
 };
 
