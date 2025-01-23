@@ -1,4 +1,4 @@
-import NextAuth, { Session } from "next-auth";
+import NextAuth, { Account, Session } from "next-auth";
 import { JWT } from "next-auth/jwt";
 import CognitoProvider from "next-auth/providers/cognito";
 
@@ -13,7 +13,7 @@ const authOptions = {
   debug: true,
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
-    async jwt({ token, account }: { token: JWT; account: any }) {
+    async jwt({ token, account }: { token: JWT; account: Account | null }) {
       if (account) {
         token.accessToken = account.access_token;
         token.idToken = account.id_token;
