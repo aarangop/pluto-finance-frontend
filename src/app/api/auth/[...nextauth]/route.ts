@@ -14,6 +14,7 @@ const authOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     async jwt({ token, account }: { token: JWT; account: Account | null }) {
+      console.log("jwt", token, account);
       if (account) {
         token.accessToken = account.access_token;
         token.idToken = account.id_token;
@@ -21,6 +22,7 @@ const authOptions = {
       return token;
     },
     async session({ session, token }: { session: Session; token: JWT }) {
+      console.log("session", session);
       return {
         ...session,
         accessToken: token.accessToken,
